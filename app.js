@@ -42,24 +42,44 @@ app.post('/admin/wallet', async (req, res) => {
 
 app.post('/user/transfer', async (req, res) => {
     const { fromUserId, toUserId, fromCurrencyId, amount, toCurrencyId } = req.body;
+
+    // Check if users exist
+    const fromUserExists = await User.findByPk(fromUserId);
+    if (!fromUserExists) {
+        return res.status(404).json({ error: 'From user not found' });
+    }
+
+    const toUserExists = await User.findByPk(toUserId);
+    if (!toUserExists) {
+        return res.status(404).json({ error: 'To user not found' });
+    }
+
+    // Check if cryptocurrencies exist
+    const fromCurrencyExists = await Cryptocurrency.findByPk(fromCurrencyId);
+    if (!fromCurrencyExists) {
+        return res.status(404).json({ error: 'From cryptocurrency not found' });
+    }
+
+    const toCurrencyExists = await Cryptocurrency.findByPk(toCurrencyId);
+    if (!toCurrencyExists) {
+        return res.status(404).json({ error: 'To cryptocurrency not found' });
+    }
+
+    // Existing wallet and transfer logic...
     const fromWallet = await Wallet.findOne({ where: { userId: fromUserId, cryptocurrencyId: fromCurrencyId } });
-    if (!fromWallet || fromWallet.balance < amount) 
-    {
+    if (!fromWallet || fromWallet.balance < amount) {
         return res.status(400).json({ error: 'Insufficient balance' });
     }
 
     let toWallet = await Wallet.findOne({ where: { userId: toUserId, cryptocurrencyId: toCurrencyId} });
-    if (!toWallet)
-    {
+    if (!toWallet) {
         toWallet = await Wallet.create({ userId: toUserId, cryptocurrencyId: toCurrencyId, balance: 0 });
     }
 
     let finalAmount = amount;
-    if (fromCurrencyId !== toCurrencyId)
-    {
+    if (fromCurrencyId !== toCurrencyId) {
         const exchangeRate = await ExchangeRate.findOne({ where: { fromCurrencyId, toCurrencyId } });
-        if (!exchangeRate)
-        {
+        if (!exchangeRate) {
             return res.status(400).json({ error: 'Exchange rate not found' });
         }
         finalAmount *= parseFloat(exchangeRate.rate);
