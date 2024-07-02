@@ -1,0 +1,192 @@
+{
+	"info": {
+		"_postman_id": "5d612722-9232-495c-a55e-2e35a6438d1a",
+		"name": "Wallet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13466465"
+	},
+	"item": [
+		{
+			"name": "admin/total-balance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/admin/total-balance",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"total-balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin/cryptocurrency",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"ETH\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/cryptocurrency",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"cryptocurrency"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin/exchange-rate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fromCurrencyId\": 1,\r\n    \"toCurrencyId\": 2,\r\n    \"rate\": 0.05\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/exchange-rate",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"exchange-rate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin/wallet",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"UserId\": 1,\r\n    \"CryptocurrencyId\": 1,\r\n    \"amount\": 1000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/wallet",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"wallet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user/transfer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fromUserId\": 1,\r\n    \"toUserId\": 2,\r\n    \"fromCurrencyId\": 1,\r\n    \"amount\": 1000,\r\n    \"toCurrencyId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/user/transfer",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"user",
+						"transfer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin/user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"DevTest\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/user",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
